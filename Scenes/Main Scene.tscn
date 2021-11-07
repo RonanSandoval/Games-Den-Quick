@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scripts/CameraController.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scripts/GameController.gd" type="Script" id=7]
 [ext_resource path="res://Sprites/cloud.png" type="Texture" id=8]
 [ext_resource path="res://Sprites/emu_song.wav" type="AudioStream" id=9]
+[ext_resource path="res://Sprites/title.png" type="Texture" id=10]
 
 [sub_resource type="PlaneMesh" id=1]
 
@@ -164,3 +165,7 @@ draw_pass_1 = SubResource( 13 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 autoplay = true
+
+[node name="Title" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13, -5 )
+texture = ExtResource( 10 )

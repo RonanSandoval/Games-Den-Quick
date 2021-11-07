@@ -15,9 +15,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if my_game.game_state != 0:
-		my_points.bbcode_text = "[right]Score: " + str(my_player.points) + " [/right]"
+		my_points.bbcode_text = "[right]SCORE: " + str(my_player.points) + " [/right]"
 	elif my_player.high_score > 0:
-		my_points.bbcode_text = "[right]High Score: " + str(my_player.high_score) + " [/right]"
+		my_points.bbcode_text = "[right]HIGH SCORE: " + str(my_player.high_score) + " [/right]"
 	else:
 		my_points.bbcode_text = ""
 	my_hearts[0].visible = my_player.health > 0

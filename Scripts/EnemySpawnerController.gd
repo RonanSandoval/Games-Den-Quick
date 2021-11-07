@@ -11,7 +11,9 @@ const SPINY = preload("res://Scenes/Spiny.tscn")
 onready var my_game = get_node("../GameController")
 
 const GAME_SPEED = 2
-const SPAWN_SPEED = [1]
+const ROUND_SPEED = [5, 4]
+const ROUND_TYPE = [[0], [1]]
+const ROUND_LENGTH = [20]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
