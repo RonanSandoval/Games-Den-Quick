@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/popsicle_get.wav-55a268ec886de8e6b897c78b5e0588d4.sample"
+
+[deps]
+
+source_file="res://Sounds/popsicle_get.wav"
+dest_files=[ "res://.import/popsicle_get.wav-55a268ec886de8e6b897c78b5e0588d4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

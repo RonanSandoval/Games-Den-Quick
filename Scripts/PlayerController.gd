@@ -21,7 +21,7 @@ onready var my_sprite = get_child(1)
 onready var my_dust = get_child(2)
 onready var my_shadow = get_child(3)
 onready var my_explode = get_child(4)
-
+onready var my_audio = get_child(5)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -49,6 +49,7 @@ func _process(delta):
 		return
 	
 	if my_game.game_state == 1:
+		my_sprite.scale.x = 1.5
 		points = 0
 		health = 3
 		counter -= delta
@@ -156,9 +157,15 @@ func _on_Player_area_entered(area):
 		if not invincible > 0:
 			my_explode.emitting = true
 			health -= 1
-			invincible = 3
+			invincible = 3			
+			my_audio.set_stream(load("res://Sounds/hit.wav"))
+			my_audio.play()
 		area.disappear = true
+	
 	elif "Point" in groups:
 		points += 1
 		area.disappear = true
 		area.my_particles.emitting = true
+		
+		my_audio.set_stream(load("res://Sounds/popsicle_get.wav"))
+		my_audio.play()

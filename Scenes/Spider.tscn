@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Sprites/nettle_1.png" type="Texture" id=1]
-[ext_resource path="res://Sprites/nettle_2.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/tarantula-2.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/tarantula-1.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/dust1.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/EnemyController.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/taran_egg.png" type="Texture" id=5]
 
 [sub_resource type="BoxShape" id=3]
 margin = 0.001
@@ -11,12 +12,12 @@ extents = Vector3( 0.5, 0.5, 0.2 )
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "adult",
-"speed": 5.0
+"speed": 3.0
 }, {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "baby",
 "speed": 5.0
@@ -41,9 +42,10 @@ transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1, 0, 0, 0 )
 pixel_size = 0.002
 frames = SubResource( 6 )
 animation = "baby"
+playing = true
 
 [node name="Shadow" type="MeshInstance" parent="."]
-transform = Transform( 1.5, 0, 0, 0, -6.55671e-08, 1, 0, -1.5, -4.37114e-08, 0, -1.49, 0 )
+transform = Transform( 2.5, 0, 0, 0, -6.55671e-08, 1, 0, -1.5, -4.37114e-08, 0, -1.49, 0 )
 mesh = SubResource( 4 )
 skeleton = NodePath("")
 material/0 = SubResource( 5 )

@@ -15,6 +15,7 @@ const ANGLE_SPEED = 5
 
 onready var my_player = get_node("../../Player")
 onready var my_game = get_node("../../GameController")
+onready var my_floor = get_node("../../Floor")
 onready var my_collision = get_child(0)
 onready var my_sprite = get_child(1)
 onready var my_shadow = get_child(2)
@@ -31,6 +32,10 @@ func _ready():
 		else:
 			direction = -1
 	elif "Spiny" in name:
+		scale.x = 0
+		appear = true
+		counter = 3
+	else: 
 		scale.x = 0
 		appear = true
 		counter = 3
@@ -53,6 +58,8 @@ func _process(delta):
 			bee_AI(delta)
 		if "Spiny" in name:
 			spiny_AI(delta)
+		if "Spider" in name:
+			spider_AI(delta)
 		pass
 	
 	if my_game.game_state == 3:
@@ -88,9 +95,11 @@ func spiny_AI(delta):
 		if counter < 0:
 			degree += delta * ANGLE_SPEED
 			my_sprite.rotation.y = degree
+			if(degree > 3*PI/2):
+				my_sprite.set_animation("adult")
 			if (degree > 2*PI):
 				mode = 1
-				counter = 5
+				counter = 10
 	if mode == 1:
 		my_sprite.set_animation("adult")
 		my_collision.disabled = false
@@ -101,3 +110,55 @@ func spiny_AI(delta):
 			disappear = true
 		
 	pass
+
+func spider_AI(delta):
+	if mode == 0:
+		counter -= delta
+		if counter < 0:
+			degree += delta * ANGLE_SPEED
+			my_sprite.rotation.y = degree
+			if(degree > 3*PI/2):
+				my_sprite.set_animation("adult")
+			if (degree > 2*PI):
+				mode = 1
+				counter = 8
+				degree = [PI/4, 3*PI/4, 5*PI/4, 7*PI/4][randi()%4]
+	if mode == 1:
+		my_sprite.set_animation("adult")
+		my_collision.disabled = false
+		
+		translation.x += cos(degree) * 4 * delta
+		translation.z += sin(degree) * 4 * delta
+		
+		# wall bounce
+		if (translation.x > my_floor.scale.x - 0.5 or translation.x < -my_floor.scale.x + 0.5):
+			degree = PI - degree
+			if (degree < 0):
+				degree += 2 * PI
+			if (degree > 2 * PI):
+				degree -= 2 * PI
+			#translation.x += cos(angle) * vel * delta * 2
+			translation.x = sign(translation.x) * (my_floor.scale.x - 0.6)
+		
+		if (translation.z > my_floor.scale.z - 0.5 or translation.z < -my_floor.scale.z + 0.5):
+			degree = -degree
+			if (degree < 0):
+				degree += 2 * PI
+			if (degree > 2 * PI):
+				degree -= 2 * PI
+			translation.z = sign(translation.z) * (my_floor.scale.z - 0.6)
+		
+		if not disappear:
+			if cos(degree) > 0:
+				my_sprite.rotation.y = lerp(my_sprite.rotation.y, 0, 0.2)
+				#my_sprite.set_flip_h(false)
+			else:
+				#my_sprite.set_flip_h(true)
+				my_sprite.rotation.y = lerp(my_sprite.rotation.y, -PI, 0.2)
+		
+		counter -= delta
+		if counter < 0:
+			disappear = true
+		
+	pass
+
