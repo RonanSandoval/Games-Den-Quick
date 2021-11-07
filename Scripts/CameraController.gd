@@ -33,7 +33,7 @@ func _process(delta):
 	elif mode == 3:
 		#look_at(my_player.translation, Vector3(0,1,0))
 		translation.x = lerp(translation.x, my_player.translation.x / 1.5, delta * 4)
-		translation.z = lerp(translation.z, (my_player.translation.z / 3) + 9, delta * 4)
+		translation.z = lerp(translation.z, (my_player.translation.z / 2) + 9, delta * 4)
 		rotation.y = -translation.x / 50
 
 

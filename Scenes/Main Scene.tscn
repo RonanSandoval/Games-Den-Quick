@@ -1,19 +1,31 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/CameraController.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/GrassCreator.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/EnemySpawnerController.gd" type="Script" id=4]
+[ext_resource path="res://Sprites/heart.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/InterfaceController.gd" type="Script" id=6]
 
 [sub_resource type="PlaneMesh" id=1]
 
 [sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 0.458824, 0.847059, 0.709804, 1 )
+albedo_color = Color( 0.988235, 0.686275, 0.368627, 1 )
 
 [sub_resource type="Environment" id=2]
 background_mode = 1
-background_color = Color( 0.392157, 0.647059, 0.803922, 1 )
+background_color = Color( 0.4, 0.639216, 0.784314, 1 )
 ambient_light_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="DynamicFontData" id=4]
+font_path = "res://Sprites/FallenSans-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=5]
+size = 30
+font_data = SubResource( 4 )
+
+[sub_resource type="Theme" id=6]
+default_font = SubResource( 5 )
 
 [node name="Main Scene" type="Spatial"]
 
@@ -31,9 +43,57 @@ script = ExtResource( 1 )
 script = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 
 [node name="Interface" type="Node" parent="."]
+script = ExtResource( 6 )
 
-[node name="Grass" type="Node" parent="."]
+[node name="Health1" type="TextureRect" parent="Interface"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 71.0
+margin_bottom = 71.0
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health2" type="TextureRect" parent="Interface"]
+margin_left = 77.0
+margin_top = 7.0
+margin_right = 141.0
+margin_bottom = 71.0
+rect_pivot_offset = Vector2( 50, 17 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Health3" type="TextureRect" parent="Interface"]
+margin_left = 147.0
+margin_top = 7.0
+margin_right = 211.0
+margin_bottom = 71.0
+rect_pivot_offset = Vector2( 50, 17 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Points" type="RichTextLabel" parent="Interface"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -256.0
+margin_top = 10.0
+margin_right = -12.0
+margin_bottom = 49.0
+theme = SubResource( 6 )
+bbcode_enabled = true
+bbcode_text = "[right]POINTS : 0[/right]"
+text = "POINTS : 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NatureSpawner" type="Node" parent="."]
 script = ExtResource( 3 )

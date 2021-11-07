@@ -12,6 +12,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var grass_instance = BLADE.instance()
-	grass_instance.translation = Vector3(rand_range(-my_floor.scale.x,my_floor.scale.x),0.5,rand_range(-my_floor.scale.z,my_floor.scale.z))
-	add_child(grass_instance)
+	#var grass_instance = BLADE.instance()
+	#grass_instance.translation = Vector3(rand_range(-my_floor.scale.x,my_floor.scale.x),0.5,rand_range(-my_floor.scale.z,my_floor.scale.z))
+	#add_child(grass_instance)
+	pass
