@@ -8,6 +8,8 @@ var dis_counter = 3
 
 const ANGLE_SPEED = 5
 
+onready var my_game = get_node("../../GameController")
+
 onready var my_collision = get_child(0)
 onready var my_sprite = get_child(1)
 onready var my_shadow = get_child(2)
@@ -24,9 +26,12 @@ func _ready():
 func _process(delta):
 	
 	if disappear:
+		my_collision.disabled = true
 		dis_counter -= delta
-		my_sprite.opacity = 0
-		my_shadow.visible = false
+		my_sprite.scale.x -= delta * 3
+		if my_sprite.scale.x < 0:
+			my_sprite.opacity = 0
+			my_shadow.visible = false
 		if dis_counter < 0:
 			queue_free()
 	
@@ -44,4 +49,6 @@ func _process(delta):
 			mode = 1
 	my_sprite.rotation.z = sin(degree) / 4
 	my_shadow.scale = Vector3((1/my_sprite.translation.y) / 1.5,(1/my_sprite.translation.y) / 1.5,0)
-
+	
+	if my_game.game_state == 3:
+		disappear = true

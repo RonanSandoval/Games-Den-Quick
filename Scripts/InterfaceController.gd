@@ -1,6 +1,7 @@
 extends Node
 
 var my_hearts = [] 
+onready var my_game = get_node("../GameController")
 onready var my_points = get_node("Points")
 onready var my_player = get_node("../Player")
 
@@ -13,7 +14,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	my_points.bbcode_text = "[right]Points: " + str(my_player.points) + "[/right]"
+	if my_game.game_state != 0:
+		my_points.bbcode_text = "[right]Score: " + str(my_player.points) + " [/right]"
+	elif my_player.high_score > 0:
+		my_points.bbcode_text = "[right]High Score: " + str(my_player.high_score) + " [/right]"
+	else:
+		my_points.bbcode_text = ""
 	my_hearts[0].visible = my_player.health > 0
 	my_hearts[1].visible = my_player.health > 1
 	my_hearts[2].visible = my_player.health > 2

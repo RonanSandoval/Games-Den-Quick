@@ -8,6 +8,8 @@ const BEE = preload("res://Scenes/Bee.tscn")
 const FOOD = preload("res://Scenes/Food.tscn")
 const SPINY = preload("res://Scenes/Spiny.tscn")
 
+onready var my_game = get_node("../GameController")
+
 const GAME_SPEED = 2
 const SPAWN_SPEED = [1]
 
@@ -21,6 +23,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if my_game.game_state != 2:
+		return
+	
 	counter_enemy -= delta * GAME_SPEED
 	counter_food -= delta * GAME_SPEED
 	if counter_enemy < 0:
@@ -29,11 +34,11 @@ func _process(delta):
 			pass
 		else:
 			spawn_bee()
-		counter_enemy = 1
+		counter_enemy = 3
 	
 	if counter_food < 0:
 		spawn_food()
-		counter_food = 3
+		counter_food = 5
 	
 	
 
@@ -47,7 +52,7 @@ func spawn_bee():
 
 func spawn_spiny():
 	var spiny_instance = SPINY.instance()
-	spiny_instance.translation = Vector3(rand_range(-10,10),0.5,rand_range(-5,5))
+	spiny_instance.translation = Vector3(rand_range(-10,10),1.5,rand_range(-5,5))
 	add_child(spiny_instance)
 
 

@@ -6,13 +6,18 @@ const BLADE = preload("res://Scenes/Blade.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	pass # Replace with function body.
 	
 
+func generate(count):
+	for i in count:
+		var grass_instance = BLADE.instance()
+		grass_instance.translation = Vector3(rand_range(-13,13),1,rand_range(-4,4))
+		grass_instance.set_frame(randi() % 4)
+		grass_instance.set_flip_h(randf() < 0.5)
+		add_child(grass_instance)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	#var grass_instance = BLADE.instance()
-	#grass_instance.translation = Vector3(rand_range(-my_floor.scale.x,my_floor.scale.x),0.5,rand_range(-my_floor.scale.z,my_floor.scale.z))
-	#add_child(grass_instance)
-	pass
+func reset():
+	for child in get_children():
+		child.disappear = true

@@ -14,6 +14,7 @@ var mode = 0
 const ANGLE_SPEED = 5
 
 onready var my_player = get_node("../../Player")
+onready var my_game = get_node("../../GameController")
 onready var my_collision = get_child(0)
 onready var my_sprite = get_child(1)
 onready var my_shadow = get_child(2)
@@ -53,6 +54,9 @@ func _process(delta):
 		if "Spiny" in name:
 			spiny_AI(delta)
 		pass
+	
+	if my_game.game_state == 3:
+		disappear = true
 
 func bee_AI(delta):
 	degree += delta * ANGLE_SPEED
@@ -88,9 +92,10 @@ func spiny_AI(delta):
 				mode = 1
 				counter = 5
 	if mode == 1:
+		my_sprite.set_animation("adult")
 		my_collision.disabled = false
 		degree += delta * ANGLE_SPEED
-		my_sprite.scale.y += sin(degree) * 0.03
+		my_sprite.rotation.y += cos(degree) * 0.03
 		counter -= delta
 		if counter < 0:
 			disappear = true
