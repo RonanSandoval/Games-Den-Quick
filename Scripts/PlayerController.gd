@@ -14,6 +14,9 @@ var invincible = 0
 
 const ANGLE_CHANGE = 2
 
+const HIT_SOUND = preload("res://Sounds/hit.wav")
+const GET_SOUND = preload("res://Sounds/popsicle_get.wav")
+
 onready var my_cam = get_node("../Camera")
 onready var my_floor = get_node("../Floor")
 onready var my_game = get_node("../GameController")
@@ -96,13 +99,13 @@ func _process(delta):
 		#translation.x += cos(angle) * vel * delta * 2
 		translation.x = sign(translation.x) * (my_floor.scale.x - 0.6)
 	
-	if (translation.z > my_floor.scale.z - 0.5 or translation.z < -my_floor.scale.z + 0.5):
+	if (translation.z > my_floor.scale.z - 1 or translation.z < -my_floor.scale.z + 1):
 		angle = -angle
 		if (angle < 0):
 			angle += 2 * PI
 		if (angle > 2 * PI):
 			angle -= 2 * PI
-		translation.z = sign(translation.z) * (my_floor.scale.z - 0.6)
+		translation.z = sign(translation.z) * (my_floor.scale.z - 1.1)
 	
 	if invincible > 0:
 		my_sprite.set_animation("ouch")
@@ -158,7 +161,7 @@ func _on_Player_area_entered(area):
 			my_explode.emitting = true
 			health -= 1
 			invincible = 3			
-			my_audio.set_stream(load("res://Sounds/hit.wav"))
+			my_audio.set_stream(HIT_SOUND)
 			my_audio.play()
 		area.disappear = true
 	
@@ -167,5 +170,5 @@ func _on_Player_area_entered(area):
 		area.disappear = true
 		area.my_particles.emitting = true
 		
-		my_audio.set_stream(load("res://Sounds/popsicle_get.wav"))
+		my_audio.set_stream(GET_SOUND)
 		my_audio.play()

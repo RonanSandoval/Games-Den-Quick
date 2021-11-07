@@ -80,6 +80,11 @@ func bee_AI(delta):
 			disappear = true
 			
 	my_shadow.scale = Vector3((1/my_sprite.translation.y)/1.5,(1/my_sprite.translation.y)/1.5,0)
+	if abs(translation.x) > 14:
+		my_shadow.visible = false
+	else:
+		my_shadow.visible = true
+	
 	translation.x += direction * delta * speed
 	if abs(translation.x) > 15:
 		mode = 2
@@ -140,13 +145,13 @@ func spider_AI(delta):
 			#translation.x += cos(angle) * vel * delta * 2
 			translation.x = sign(translation.x) * (my_floor.scale.x - 0.6)
 		
-		if (translation.z > my_floor.scale.z - 0.5 or translation.z < -my_floor.scale.z + 0.5):
+		if (translation.z > my_floor.scale.z - 1 or translation.z < -my_floor.scale.z + 1):
 			degree = -degree
 			if (degree < 0):
 				degree += 2 * PI
 			if (degree > 2 * PI):
 				degree -= 2 * PI
-			translation.z = sign(translation.z) * (my_floor.scale.z - 0.6)
+			translation.z = sign(translation.z) * (my_floor.scale.z - 1.1)
 		
 		if not disappear:
 			if cos(degree) > 0:

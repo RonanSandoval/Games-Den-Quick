@@ -13,9 +13,10 @@ const SPINY = preload("res://Scenes/Spiny.tscn")
 const SPIDER = preload("res://Scenes/Spider.tscn")
 
 onready var my_game = get_node("../GameController")
+onready var my_board = get_node("../Board")
 
 const GAME_SPEED = 1
-const ROUND_SPEED = [0, 3, 2, 1.75, 3.5, 2.5, -1]
+const ROUND_SPEED = [0, 3, 2, 1.75, 4, 2.5, -1]
 const ROUND_TYPE = [[0], [1], [2,2,2,1], [1,1,2], [3], [2,2,3], [1,1,1,1,2,2,2,3]]
 const ROUND_LENGTH = [10, 25, 15, 20, 15, 20, -1]
 
@@ -30,7 +31,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if my_game.game_state != 2:
-		curr_round = 6
+		curr_round = 0
 		counter_round = ROUND_LENGTH[0]
 		counter_enemy = ROUND_SPEED[0]
 		counter_food = 2.5
@@ -58,7 +59,7 @@ func _process(delta):
 		else:
 			counter_enemy = end_timer
 			if end_timer > 0.4:
-				end_timer -= 0.02
+				end_timer -= 0.04
 				print(end_timer)
 	
 	if counter_food < 0:
@@ -70,30 +71,31 @@ func _process(delta):
 		counter_round = ROUND_LENGTH[curr_round]
 		if curr_round in [1,2,4,6]:
 			counter_rest = 4
+			my_board.spin = true
 		
 		
 
 func spawn_bee():
 	var bee_instance = BEE.instance()
 	if randf() < 0.5:
-		bee_instance.translation = Vector3(15,0.5,rand_range(-5,5))
+		bee_instance.translation = Vector3(15,0.5,rand_range(-4,4))
 	else:
-		bee_instance.translation = Vector3(-15,0.5,rand_range(-5,5))
+		bee_instance.translation = Vector3(-15,0.5,rand_range(-4,4))
 	add_child(bee_instance)
 
 func spawn_spiny():
 	var spiny_instance = SPINY.instance()
-	spiny_instance.translation = Vector3(rand_range(-10,10),1.5,rand_range(-5,5))
+	spiny_instance.translation = Vector3(rand_range(-10,10),1.5,rand_range(-4,4))
 	add_child(spiny_instance)
 	
 func spawn_spider():
 	var spider_instance = SPIDER.instance()
-	spider_instance.translation = Vector3(rand_range(-10,10),1.5,rand_range(-5,5))
+	spider_instance.translation = Vector3(rand_range(-10,10),1.5,rand_range(-4,4))
 	add_child(spider_instance)
 
 
 func spawn_food():
 	var food_instance = FOOD.instance()
-	food_instance.translation = Vector3(rand_range(-10,10),0.5,rand_range(-5,5))
+	food_instance.translation = Vector3(rand_range(-10,10),0.5,rand_range(-4,4))
 	add_child(food_instance)
 	
